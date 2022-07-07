@@ -11,3 +11,4 @@ pip install tensorflow
 pip install torch
 
 insure creating a postgres connection to posts_dw database,and share it over transformations and job
+use Get cookies txt chrome extension to extract your facebook cookies in facebook.com_cookies.txt file and submit it with your project
