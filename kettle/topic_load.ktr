@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>posts_loading</name>
+    <name>topic_load</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,16 +427,16 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2022/07/05 00:34:38.004</created_date>
+    <created_date>2022/07/06 00:54:57.249</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2022/07/05 00:34:38.004</modified_date>
+    <modified_date>2022/07/06 00:54:57.249</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>posts_cn</name>
+    <name>posts_dw</name>
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
@@ -489,52 +488,11 @@
   </connection>
   <order>
     <hop>
-      <from>read posts</from>
-      <to>Get system info</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Get system info</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values</from>
+      <from>load topic</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
-  <step>
-    <name>Get system info</name>
-    <type>SystemInfo</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>date</name>
-        <type>system date (variable)</type>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Table output</name>
     <type>TableOutput</type>
@@ -546,9 +504,9 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>posts_cn</connection>
+    <connection>posts_dw</connection>
     <schema>public</schema>
-    <table>posts</table>
+    <table>topics</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -565,50 +523,6 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>id</column_name>
-        <stream_name>id</stream_name>
-      </field>
-      <field>
-        <column_name>available</column_name>
-        <stream_name>available</stream_name>
-      </field>
-      <field>
-        <column_name>text</column_name>
-        <stream_name>text</stream_name>
-      </field>
-      <field>
-        <column_name>url</column_name>
-        <stream_name>url</stream_name>
-      </field>
-      <field>
-        <column_name>haha</column_name>
-        <stream_name>haha</stream_name>
-      </field>
-      <field>
-        <column_name>likes</column_name>
-        <stream_name>likes</stream_name>
-      </field>
-      <field>
-        <column_name>love</column_name>
-        <stream_name>love</stream_name>
-      </field>
-      <field>
-        <column_name>sorry</column_name>
-        <stream_name>sorry</stream_name>
-      </field>
-      <field>
-        <column_name>wow</column_name>
-        <stream_name>wow</stream_name>
-      </field>
-      <field>
-        <column_name>shares</column_name>
-        <stream_name>shares</stream_name>
-      </field>
-      <field>
-        <column_name>created_at</column_name>
-        <stream_name>created_at</stream_name>
-      </field>
-      <field>
         <column_name>topic</column_name>
         <stream_name>topic</stream_name>
       </field>
@@ -622,14 +536,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>80</yloc>
+      <xloc>675</xloc>
+      <yloc>158</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>read posts</name>
-    <type>CsvInput</type>
+    <name>load topic</name>
+    <type>JsonInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -638,209 +552,52 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>/home/artium/Desktop/opinionScraper/posts.csv</filename>
-    <filename_field/>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <includeNulls>N</includeNulls>
     <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
+    <file>
+      <name>${topic_path}</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
     <fields>
       <field>
-        <name>post_id</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>available</name>
-        <type>Boolean</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
         <name>topic</name>
-        <type>String</type>
+        <path>$..topic</path>
+        <type>None</type>
         <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>10</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>comments</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>text</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>736</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>post_url</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>53</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>haha</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>like</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>love</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>sorry</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>wow</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>shares</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>time</name>
-        <type>Date</type>
-        <format>yyyy-MM-dd HH:mm:ss</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
+        <currency/>
+        <decimal/>
+        <group/>
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>post_sen_label</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>8</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>post_sen_index</name>
-        <type>Number</type>
-        <format>#.####</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>18</length>
-        <precision>16</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>comments_sen_label</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>8</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>comments_sen_index</name>
-        <type>Number</type>
-        <format>#.####</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>18</length>
-        <precision>16</precision>
-        <trim_type>none</trim_type>
+        <repeat>N</repeat>
       </field>
     </fields>
+    <limit>0</limit>
+    <IsInFields>N</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField/>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -850,84 +607,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>post_id</name>
-        <rename>id</rename>
-      </field>
-      <field>
-        <name>available</name>
-        <rename/>
-      </field>
-      <field>
-        <name>topic</name>
-        <rename/>
-      </field>
-      <field>
-        <name>text</name>
-        <rename/>
-      </field>
-      <field>
-        <name>post_url</name>
-        <rename>url</rename>
-      </field>
-      <field>
-        <name>haha</name>
-        <rename/>
-      </field>
-      <field>
-        <name>like</name>
-        <rename>likes</rename>
-      </field>
-      <field>
-        <name>love</name>
-        <rename/>
-      </field>
-      <field>
-        <name>sorry</name>
-        <rename/>
-      </field>
-      <field>
-        <name>wow</name>
-        <rename/>
-      </field>
-      <field>
-        <name>shares</name>
-        <rename/>
-      </field>
-      <field>
-        <name>time</name>
-        <rename>created_at</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>368</xloc>
-      <yloc>80</yloc>
+      <xloc>160</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

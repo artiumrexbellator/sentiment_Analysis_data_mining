@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>replies_loading</name>
+    <name>posts_loading</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -427,16 +428,16 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2022/07/05 23:25:43.355</created_date>
+    <created_date>2022/07/05 00:34:38.004</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2022/07/05 23:25:43.355</modified_date>
-    <key_for_session_key/>
+    <modified_date>2022/07/05 00:34:38.004</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>posts_dw</name>
+    <name>posts_cn</name>
     <server>localhost</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
@@ -488,7 +489,12 @@
   </connection>
   <order>
     <hop>
-      <from>read replies</from>
+      <from>read posts</from>
+      <to>Get system info</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get system info</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
@@ -499,8 +505,8 @@
     </hop>
   </order>
   <step>
-    <name>read replies</name>
-    <type>CsvInput</type>
+    <name>Get system info</name>
+    <type>SystemInfo</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -509,75 +515,10 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>/home/artium/Desktop/opinionScraper/replies.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>"</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <format>mixed</format>
-    <encoding/>
     <fields>
       <field>
-        <name>comment_id</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>reply_id</name>
-        <type>Integer</type>
-        <format>#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>15</length>
-        <precision>0</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>commenter</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>14</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>text</name>
-        <type>String</type>
-        <format/>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>774</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>time</name>
-        <type>Date</type>
-        <format>yyyy-MM-dd HH:mm:ss</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
+        <name>date</name>
+        <type>system date (variable)</type>
       </field>
     </fields>
     <attributes/>
@@ -589,8 +530,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>208</yloc>
+      <xloc>208</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -607,20 +548,40 @@
     </partitioning>
     <fields>
       <field>
-        <name>comment_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>reply_id</name>
+        <name>post_id</name>
         <rename>id</rename>
       </field>
       <field>
-        <name>commenter</name>
-        <rename>owner</rename>
+        <name>available</name>
+      </field>
+      <field>
+        <name>topic</name>
       </field>
       <field>
         <name>text</name>
-        <rename/>
+      </field>
+      <field>
+        <name>post_url</name>
+        <rename>url</rename>
+      </field>
+      <field>
+        <name>haha</name>
+      </field>
+      <field>
+        <name>like</name>
+        <rename>likes</rename>
+      </field>
+      <field>
+        <name>love</name>
+      </field>
+      <field>
+        <name>sorry</name>
+      </field>
+      <field>
+        <name>wow</name>
+      </field>
+      <field>
+        <name>shares</name>
       </field>
       <field>
         <name>time</name>
@@ -637,8 +598,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>208</yloc>
+      <xloc>368</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -653,9 +614,9 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>posts_dw</connection>
+    <connection>posts_cn</connection>
     <schema>public</schema>
-    <table>replies</table>
+    <table>posts</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -672,24 +633,52 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>comment_id</column_name>
-        <stream_name>comment_id</stream_name>
+        <column_name>id</column_name>
+        <stream_name>id</stream_name>
       </field>
       <field>
-        <column_name>owner</column_name>
-        <stream_name>owner</stream_name>
+        <column_name>available</column_name>
+        <stream_name>available</stream_name>
       </field>
       <field>
         <column_name>text</column_name>
         <stream_name>text</stream_name>
       </field>
       <field>
+        <column_name>url</column_name>
+        <stream_name>url</stream_name>
+      </field>
+      <field>
+        <column_name>haha</column_name>
+        <stream_name>haha</stream_name>
+      </field>
+      <field>
+        <column_name>likes</column_name>
+        <stream_name>likes</stream_name>
+      </field>
+      <field>
+        <column_name>love</column_name>
+        <stream_name>love</stream_name>
+      </field>
+      <field>
+        <column_name>sorry</column_name>
+        <stream_name>sorry</stream_name>
+      </field>
+      <field>
+        <column_name>wow</column_name>
+        <stream_name>wow</stream_name>
+      </field>
+      <field>
+        <column_name>shares</column_name>
+        <stream_name>shares</stream_name>
+      </field>
+      <field>
         <column_name>created_at</column_name>
         <stream_name>created_at</stream_name>
       </field>
       <field>
-        <column_name>id</column_name>
-        <stream_name>id</stream_name>
+        <column_name>topic</column_name>
+        <stream_name>topic</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -702,7 +691,235 @@
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>208</yloc>
+      <yloc>80</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>read posts</name>
+    <type>CsvInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>${posts_path}</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <format>mixed</format>
+    <encoding/>
+    <fields>
+      <field>
+        <name>post_id</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>available</name>
+        <type>Boolean</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>topic</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>10</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>comments</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>text</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>736</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>post_url</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>53</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>haha</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>like</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>love</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>sorry</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>wow</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>shares</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>time</name>
+        <type>Date</type>
+        <format>yyyy-MM-dd HH:mm:ss</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>post_sen_label</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>8</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>post_sen_index</name>
+        <type>Number</type>
+        <format>#.####</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>18</length>
+        <precision>16</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>comments_sen_label</name>
+        <type>String</type>
+        <format/>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>8</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>comments_sen_index</name>
+        <type>Number</type>
+        <format>#.####</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>18</length>
+        <precision>16</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>80</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
